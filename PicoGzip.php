@@ -32,12 +32,6 @@ class PicoGzip extends AbstractPicoPlugin
     const GZIP_COMPRESSION_LEVEL_DEFAULT    = 9;
 
     /**
-     * This plugin depends o nthe PicoParsePagesContent plugin
-     * @var array
-     */
-    protected $dependsOn = array('PicoParsePagesContent');
-
-    /**
      * Registers the `Gzip` meta header fields.
      *
      * @see    Pico::getMetaHeaders()
