@@ -53,30 +53,23 @@ class PicoGzip extends AbstractPicoPlugin
      */
     public function onConfigLoaded(array &$config)
     {
-        if (!isset($config[self::GZIP_COMPRESSION_LEVEL_CONFIG_KEY]))
-        {
-            $config[self::GZIP_COMPRESSION_LEVEL_CONFIG_KEY] = self::GZIP_COMPRESSION_LEVEL_DEFAULT;
-        }
-    }
 
-    /**
-     * If PicoGzip is enabled, this method checks if the zlib extension
-     * is loaded and fails if it is not
-     *
-     * @see    Pico::getPlugin()
-     * @see    Pico::getPlugins()
-     * @param  object[] &$plugins loaded plugin instances
-     * @throw RuntimeException
-     * @return void
-     */
-    public function onPluginsLoaded(array &$plugins)
-    {
-        if ($this->enabled && !extension_loaded('zlib'))
+        if (!$this->enabled) {
+            return;
+        }
+
+        if (!extension_loaded('zlib'))
         {
             throw new RuntimeException(
                 'The Zlib library is required to enable content encoding. Please disable the ' + __CLASS__ + ' plugin'
             );
         }
+
+        if (!isset($config[self::GZIP_COMPRESSION_LEVEL_CONFIG_KEY]))
+        {
+            $config[self::GZIP_COMPRESSION_LEVEL_CONFIG_KEY] = self::GZIP_COMPRESSION_LEVEL_DEFAULT;
+        }
+
     }
 
     /**
